@@ -1,10 +1,9 @@
-package com.example.fruitlist.ui.fruit
+package com.example.dogbreeds.ui.dogbreeds
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -12,10 +11,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.fruitlist.model.Fruit
+import com.example.dogbreeds.model.DogBreed
 
 @Composable
-fun FruitCell(fruit: Fruit, modifier: Modifier = Modifier) {
+fun DogBreedCell(dogBreed: DogBreed, modifier: Modifier = Modifier) {
     Surface(
         modifier = modifier.fillMaxWidth(),
         shape = RoundedCornerShape(8.dp),
@@ -27,12 +26,11 @@ fun FruitCell(fruit: Fruit, modifier: Modifier = Modifier) {
             horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             Text(
-                text = fruit.emoji,
-                modifier = Modifier.size(28.dp),
+                text = "🐶",
                 style = MaterialTheme.typography.titleLarge
             )
             Text(
-                text = fruit.name,
+                text = dogBreed.name,
                 style = MaterialTheme.typography.titleLarge
             )
         }

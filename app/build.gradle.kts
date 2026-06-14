@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.fruitlist"
+    namespace = "com.example.dogbreeds"
     compileSdk {
         version = release(36) {
             minorApiLevel = 1
@@ -12,7 +12,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.example.fruitlist"
+        applicationId = "com.example.dogbreeds"
         minSdk = 24
         targetSdk = 36
         versionCode = 1
@@ -44,5 +44,7 @@ dependencies {
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.ktor.client.android)
+    implementation(libs.ktor.client.core)
     debugImplementation(libs.androidx.compose.ui.tooling)
 }

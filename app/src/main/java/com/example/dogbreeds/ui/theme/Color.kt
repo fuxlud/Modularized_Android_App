@@ -1,4 +1,4 @@
-package com.example.fruitlist.ui.theme
+package com.example.dogbreeds.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

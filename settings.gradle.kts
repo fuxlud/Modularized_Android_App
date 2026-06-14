@@ -22,6 +22,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Fruit List"
+rootProject.name = "Dog Breeds"
 include(":app")
  
