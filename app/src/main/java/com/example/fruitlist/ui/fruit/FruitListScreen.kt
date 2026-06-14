@@ -9,6 +9,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.Wallpapers
 import androidx.compose.ui.unit.dp
 import com.example.fruitlist.data.FruitRepository
 import com.example.fruitlist.model.Fruit
@@ -36,6 +37,18 @@ fun FruitListScreen(
 @Composable
 fun FruitListScreenPreview() {
     FruitListTheme {
+        FruitListScreen()
+    }
+}
+
+@Preview(
+    showBackground = true,
+    uiMode = android.content.res.Configuration.UI_MODE_NIGHT_YES,
+    wallpaper = Wallpapers.RED_DOMINATED_EXAMPLE
+)
+@Composable
+fun FruitListScreenDarkPreview() {
+    FruitListTheme(darkTheme = true) {
         FruitListScreen()
     }
 }
