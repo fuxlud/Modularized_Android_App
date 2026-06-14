@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.fuxlud.modularized_android_app"
+    namespace = "com.example.myapplication"
     compileSdk {
         version = release(36) {
             minorApiLevel = 1
@@ -12,7 +12,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.fuxlud.modularized_android_app"
+        applicationId = "com.example.myapplication"
         minSdk = 24
         targetSdk = 36
         versionCode = 1
@@ -41,7 +41,6 @@ dependencies {
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.compose.material3)
-    implementation(libs.androidx.compose.material3.adaptive.navigation.suite)
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.ui.tooling.preview)

@@ -22,5 +22,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Modularized_Android_App"
+rootProject.name = "My Application"
 include(":app")
+ 

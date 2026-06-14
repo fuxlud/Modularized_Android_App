@@ -1,4 +1,4 @@
-package com.fuxlud.modularized_android_app.ui.theme
+package com.example.myapplication.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

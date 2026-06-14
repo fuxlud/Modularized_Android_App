@@ -1,4 +1,4 @@
-package com.fuxlud.modularized_android_app
+package com.example.myapplication
 
 import org.junit.Test
 
