@@ -21,7 +21,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -30,15 +29,8 @@ import androidx.compose.ui.unit.dp
 import com.example.movies.R
 import com.example.movies.model.Movie
 import com.example.movies.ui.components.MovieGridCell
+import com.example.movies.ui.theme.AppBackgroundGradient
 import kotlinx.coroutines.flow.distinctUntilChanged
-
-private val ScreenGradient = Brush.verticalGradient(
-    colors = listOf(
-        Color(0xFF11263C),
-        Color(0xFF0A1826),
-        Color(0xFF000409)
-    )
-)
 
 @Composable
 fun PopularMoviesContent(
@@ -80,7 +72,7 @@ fun PopularMoviesContent(
                 state = gridState,
                 modifier = modifier
                     .fillMaxSize()
-                    .background(ScreenGradient),
+                    .background(AppBackgroundGradient),
                 contentPadding = PaddingValues(
                     start = 18.dp,
                     top = 32.dp,
@@ -140,7 +132,7 @@ private fun PopularMoviesMessage(text: String, modifier: Modifier = Modifier) {
     Box(
         modifier = modifier
             .fillMaxSize()
-            .background(ScreenGradient)
+            .background(AppBackgroundGradient)
             .padding(16.dp),
         contentAlignment = Alignment.Center
     ) {

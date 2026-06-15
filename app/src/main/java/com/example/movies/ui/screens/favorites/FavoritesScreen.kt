@@ -16,7 +16,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -24,14 +23,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.example.movies.model.Movie
 import com.example.movies.ui.components.MovieGridCell
-
-private val ScreenGradient = Brush.verticalGradient(
-    colors = listOf(
-        Color(0xFF11263C),
-        Color(0xFF0A1826),
-        Color(0xFF000409)
-    )
-)
+import com.example.movies.ui.theme.AppBackgroundGradient
 
 @Composable
 fun FavoritesScreen(
@@ -43,7 +35,7 @@ fun FavoritesScreen(
         columns = GridCells.Fixed(3),
         modifier = modifier
             .fillMaxSize()
-            .background(ScreenGradient),
+            .background(AppBackgroundGradient),
         contentPadding = PaddingValues(
             start = 18.dp,
             top = 69.dp,

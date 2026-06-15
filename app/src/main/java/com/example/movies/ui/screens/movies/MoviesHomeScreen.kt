@@ -26,14 +26,7 @@ import androidx.compose.ui.unit.dp
 import com.example.movies.model.Movie
 import com.example.movies.ui.screens.favorites.FavoritesScreen
 import com.example.movies.ui.screens.popularmovies.PopularMoviesScreen
-
-private val ScreenGradient = Brush.verticalGradient(
-    colors = listOf(
-        Color(0xFF11263C),
-        Color(0xFF0A1826),
-        Color(0xFF000409)
-    )
-)
+import com.example.movies.ui.theme.AppBackgroundGradient
 
 @Composable
 fun MoviesHomeScreen(
@@ -48,7 +41,7 @@ fun MoviesHomeScreen(
     Box(
         modifier = modifier
             .fillMaxSize()
-            .background(ScreenGradient)
+            .background(AppBackgroundGradient)
     ) {
         when (selectedTab) {
             MoviesTab.Discover -> PopularMoviesScreen(
