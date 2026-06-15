@@ -10,13 +10,13 @@ import org.json.JSONObject
 class MoviesApi(
     private val client: HttpClient = HttpClient(Android)
 ) {
-    suspend fun getPopularMovies(): List<Movie> {
+    suspend fun getPopularMovies(page: Int): List<Movie> {
         check(MoviesApiConfig.apiKey.isNotBlank()) {
             "Missing TMDB_API_KEY in local.properties"
         }
 
         val response = client
-            .get("${MoviesApiConfig.popularMoviesUrl}?api_key=${MoviesApiConfig.apiKey}&language=en-US&page=1")
+            .get("${MoviesApiConfig.popularMoviesUrl}?api_key=${MoviesApiConfig.apiKey}&language=en-US&page=$page")
             .bodyAsText()
 
         val results = JSONObject(response).getJSONArray("results")

@@ -1,7 +1,5 @@
 package com.example.movies.ui.screens.popularmovies
 
-import android.graphics.BitmapFactory
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -14,31 +12,25 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ImageBitmap
-import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import coil3.compose.AsyncImage
 import com.example.movies.model.Movie
-import io.ktor.client.HttpClient
-import io.ktor.client.engine.android.Android
-import io.ktor.client.request.get
-import io.ktor.client.statement.bodyAsBytes
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import java.util.Locale
 
 @Composable
 fun PopularMovieCell(movie: Movie, modifier: Modifier = Modifier) {
+    val ratingText = remember(movie.rating) {
+        String.format(Locale.US, "%.1f", movie.rating)
+    }
+
     Column(
         modifier = modifier.fillMaxWidth()
     ) {
@@ -68,7 +60,7 @@ fun PopularMovieCell(movie: Movie, modifier: Modifier = Modifier) {
                 modifier = Modifier.padding(end = 6.dp)
             )
             Text(
-                text = String.format("%.1f", movie.rating),
+                text = ratingText,
                 color = Color(0xFFD9DDE5),
                 style = MaterialTheme.typography.titleMedium
             )
@@ -78,35 +70,12 @@ fun PopularMovieCell(movie: Movie, modifier: Modifier = Modifier) {
 
 @Composable
 private fun MoviePoster(posterUrl: String?, modifier: Modifier = Modifier) {
-    var poster by remember(posterUrl) { mutableStateOf<ImageBitmap?>(null) }
-
-    LaunchedEffect(posterUrl) {
-        poster = posterUrl?.let { url ->
-            withContext(Dispatchers.IO) {
-                runCatching {
-                    val bytes = HttpClient(Android).use { client ->
-                        client.get(url).bodyAsBytes()
-                    }
-                    BitmapFactory.decodeByteArray(bytes, 0, bytes.size)?.asImageBitmap()
-                }.getOrNull()
-            }
-        }
-    }
-
     Box(
         modifier = modifier
             .clip(RoundedCornerShape(12.dp))
             .background(Color(0xFF182A3E))
     ) {
-        val image = poster
-        if (image != null) {
-            Image(
-                bitmap = image,
-                contentDescription = null,
-                modifier = Modifier.matchParentSize(),
-                contentScale = ContentScale.Crop
-            )
-        } else {
+        if (posterUrl == null) {
             Box(
                 modifier = Modifier.matchParentSize(),
                 contentAlignment = Alignment.Center
@@ -118,6 +87,12 @@ private fun MoviePoster(posterUrl: String?, modifier: Modifier = Modifier) {
                 )
             }
         }
+        AsyncImage(
+            model = posterUrl,
+            contentDescription = null,
+            modifier = Modifier.matchParentSize(),
+            contentScale = ContentScale.Crop
+        )
         Text(
             text = "♡",
             color = Color.White,

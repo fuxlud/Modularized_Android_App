@@ -7,13 +7,18 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.grid.rememberLazyGridState
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -23,6 +28,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.example.movies.R
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.map
 
 private val ScreenGradient = Brush.verticalGradient(
     colors = listOf(
@@ -35,7 +42,8 @@ private val ScreenGradient = Brush.verticalGradient(
 @Composable
 fun PopularMoviesContent(
     state: PopularMoviesUiState,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onLoadNextPage: () -> Unit = {}
 ) {
     when (state) {
         PopularMoviesUiState.Loading -> PopularMoviesMessage(
@@ -48,50 +56,85 @@ fun PopularMoviesContent(
             modifier = modifier
         )
 
-        is PopularMoviesUiState.Loaded -> LazyVerticalGrid(
-            columns = GridCells.Fixed(3),
-            modifier = modifier
-                .fillMaxSize()
-                .background(ScreenGradient),
-            contentPadding = PaddingValues(
-                start = 18.dp,
-                top = 138.dp,
-                end = 18.dp,
-                bottom = 24.dp
-            ),
-            horizontalArrangement = Arrangement.spacedBy(12.dp),
-            verticalArrangement = Arrangement.spacedBy(24.dp)
-        ) {
-            item(span = { GridItemSpan(maxLineSpan) }) {
-                Column(
-                    modifier = Modifier.padding(bottom = 6.dp),
-                    verticalArrangement = Arrangement.spacedBy(22.dp)
-                ) {
-                    Text(
-                        text = "Discover",
-                        color = Color.White,
-                        style = MaterialTheme.typography.displaySmall,
-                        fontWeight = FontWeight.Bold,
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis
-                    )
-                    Text(
-                        text = "Popular Movies ›",
-                        color = Color.White,
-                        style = MaterialTheme.typography.headlineSmall,
-                        fontWeight = FontWeight.Bold,
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis
-                    )
+        is PopularMoviesUiState.Loaded -> {
+            val gridState = rememberLazyGridState()
+
+            LaunchedEffect(gridState, state.movies.size) {
+                snapshotFlow {
+                    gridState.layoutInfo.let { layoutInfo ->
+                        val lastVisibleIndex = layoutInfo.visibleItemsInfo.lastOrNull()?.index ?: 0
+                        lastVisibleIndex >= layoutInfo.totalItemsCount - 7
+                    }
+                }
+                .distinctUntilChanged()
+                .collect { shouldLoadMore ->
+                    if (shouldLoadMore) onLoadNextPage()
                 }
             }
 
-            items(
-                items = state.movies,
-                key = { movie -> movie.id },
-                contentType = { "popularMovie" }
-            ) { movie ->
-                PopularMovieCell(movie = movie)
+            LazyVerticalGrid(
+                columns = GridCells.Fixed(3),
+                state = gridState,
+                modifier = modifier
+                    .fillMaxSize()
+                    .background(ScreenGradient),
+                contentPadding = PaddingValues(
+                    start = 18.dp,
+                    top = 69.dp,
+                    end = 18.dp,
+                    bottom = 24.dp
+                ),
+                horizontalArrangement = Arrangement.spacedBy(12.dp),
+                verticalArrangement = Arrangement.spacedBy(24.dp)
+            ) {
+                item(span = { GridItemSpan(maxLineSpan) }) {
+                    Column(
+                        modifier = Modifier.padding(bottom = 6.dp),
+                        verticalArrangement = Arrangement.spacedBy(22.dp)
+                    ) {
+                        Text(
+                            text = "Discover",
+                            color = Color.White,
+                            style = MaterialTheme.typography.displaySmall,
+                            fontWeight = FontWeight.Bold,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis
+                        )
+                        Text(
+                            text = "Popular Movies",
+                            color = Color.White,
+                            style = MaterialTheme.typography.headlineSmall,
+                            fontWeight = FontWeight.Bold,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis
+                        )
+                    }
+                }
+
+                items(
+                    items = state.movies,
+                    key = { movie -> movie.id },
+                    contentType = { "popularMovie" }
+                ) { movie ->
+                    PopularMovieCell(movie = movie)
+                }
+
+                if (state.isLoadingNextPage) {
+                    item(span = { GridItemSpan(maxLineSpan) }) {
+                        Box(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(vertical = 8.dp),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            CircularProgressIndicator(
+                                modifier = Modifier.size(28.dp),
+                                color = Color(0xFF43A7FF),
+                                strokeWidth = 3.dp
+                            )
+                        }
+                    }
+                }
             }
         }
     }
