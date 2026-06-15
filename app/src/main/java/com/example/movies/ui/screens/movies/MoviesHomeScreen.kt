@@ -7,7 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
@@ -96,10 +96,9 @@ fun MoviesHomeScreen(
                         selected = selectedTab == tab,
                         onClick = { selectedTab = tab },
                         icon = {
-                            Text(
-                                text = tab.icon,
-                                style = MaterialTheme.typography.headlineSmall,
-                                color = if (selectedTab == tab) Color.White else Color(0xFF9BA8B8)
+                            Icon(
+                                imageVector = tab.icon,
+                                contentDescription = tab.title
                             )
                         },
                         label = {
