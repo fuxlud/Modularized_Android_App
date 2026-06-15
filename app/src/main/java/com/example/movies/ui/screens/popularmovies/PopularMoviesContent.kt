@@ -10,9 +10,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
+import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -38,6 +38,7 @@ fun PopularMoviesContent(
     favoriteMovieIds: Set<Int>,
     onFavoriteClick: (Movie) -> Unit,
     modifier: Modifier = Modifier,
+    gridState: LazyGridState,
     onLoadNextPage: () -> Unit = {}
 ) {
     when (state) {
@@ -52,8 +53,6 @@ fun PopularMoviesContent(
         )
 
         is PopularMoviesUiState.Loaded -> {
-            val gridState = rememberLazyGridState()
-
             LaunchedEffect(gridState, state.movies.size) {
                 snapshotFlow {
                     gridState.layoutInfo.let { layoutInfo ->

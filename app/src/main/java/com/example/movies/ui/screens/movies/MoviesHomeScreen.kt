@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import com.example.movies.model.Movie
 import com.example.movies.ui.screens.favorites.FavoritesScreen
 import com.example.movies.ui.screens.popularmovies.PopularMoviesScreen
+import com.example.movies.ui.screens.popularmovies.rememberPopularMoviesState
 import com.example.movies.ui.theme.AppBackgroundGradient
 
 @Composable
@@ -36,6 +37,7 @@ fun MoviesHomeScreen(
 ) {
     var selectedTab by remember { mutableStateOf(MoviesTab.Discover) }
     val favoriteMovieIds = remember(favoriteMovies) { favoriteMovies.map { it.id }.toSet() }
+    val popularMoviesState = rememberPopularMoviesState()
     val tabs = MoviesTab.entries
 
     Box(
@@ -47,6 +49,7 @@ fun MoviesHomeScreen(
             MoviesTab.Discover -> PopularMoviesScreen(
                 favoriteMovieIds = favoriteMovieIds,
                 onFavoriteClick = onFavoriteClick,
+                popularMoviesState = popularMoviesState,
                 modifier = Modifier.fillMaxSize()
             )
 

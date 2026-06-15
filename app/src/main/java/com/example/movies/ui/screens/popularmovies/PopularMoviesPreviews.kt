@@ -1,5 +1,6 @@
 package com.example.movies.ui.screens.popularmovies
 
+import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.Wallpapers
@@ -12,7 +13,8 @@ private fun PopularMoviesScreenPreview() {
         PopularMoviesContent(
             state = PopularMoviesUiState.Loaded(samplePopularMovies),
             favoriteMovieIds = setOf(1),
-            onFavoriteClick = {}
+            onFavoriteClick = {},
+            gridState = rememberLazyGridState()
         )
     }
 }
@@ -28,7 +30,8 @@ private fun PopularMoviesScreenDarkPreview() {
         PopularMoviesContent(
             state = PopularMoviesUiState.Loaded(samplePopularMovies),
             favoriteMovieIds = setOf(1),
-            onFavoriteClick = {}
+            onFavoriteClick = {},
+            gridState = rememberLazyGridState()
         )
     }
 }
