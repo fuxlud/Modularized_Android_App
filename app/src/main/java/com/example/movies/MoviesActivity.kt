@@ -1,4 +1,4 @@
-package com.example.dogbreeds
+package com.example.movies
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -8,17 +8,17 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
-import com.example.dogbreeds.ui.dogbreeds.DogBreedsScreen
-import com.example.dogbreeds.ui.theme.DogBreedsTheme
+import com.example.movies.ui.screens.popularmovies.PopularMoviesScreen
+import com.example.movies.ui.theme.MoviesTheme
 
-class DogBreedsActivity : ComponentActivity() {
+class MoviesActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            DogBreedsTheme {
+            MoviesTheme(darkTheme = true) {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    DogBreedsScreen(
+                    PopularMoviesScreen(
                         modifier = Modifier.padding(innerPadding)
                     )
                 }

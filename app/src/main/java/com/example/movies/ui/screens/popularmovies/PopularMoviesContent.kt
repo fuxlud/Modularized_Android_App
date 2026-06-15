@@ -1,4 +1,4 @@
-package com.example.dogbreeds.ui.dogbreeds
+package com.example.movies.ui.screens.popularmovies
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -13,53 +13,57 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.example.movies.R
 
 @Composable
-fun DogBreedsContent(
-    state: DogBreedsUiState,
+fun PopularMoviesContent(
+    state: PopularMoviesUiState,
     modifier: Modifier = Modifier
 ) {
     when (state) {
-        DogBreedsUiState.Loading -> DogBreedsMessage(
-            text = "Loading dog breeds...",
+        PopularMoviesUiState.Loading -> PopularMoviesMessage(
+            text = stringResource(R.string.loading_popular_movies),
             modifier = modifier
         )
 
-        DogBreedsUiState.Error -> DogBreedsMessage(
-            text = "Could not load dog breeds.",
+        is PopularMoviesUiState.Error -> PopularMoviesMessage(
+            text = state.message.ifBlank { stringResource(R.string.popular_movies_error) },
             modifier = modifier
         )
 
-        is DogBreedsUiState.Loaded -> LazyColumn(
+        is PopularMoviesUiState.Loaded -> LazyColumn(
             modifier = modifier
                 .fillMaxSize()
-                .background(MaterialTheme.colorScheme.background),
+                .background(Color.Black),
             contentPadding = PaddingValues(16.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             items(
-                items = state.dogBreeds,
-                key = { dogBreed -> dogBreed.name },
-                contentType = { "dogBreed" }
-            ) { dogBreed ->
-                DogBreedCell(dogBreed = dogBreed)
+                items = state.movies,
+                key = { movie -> movie.id },
+                contentType = { "popularMovie" }
+            ) { movie ->
+                PopularMovieCell(movie = movie)
             }
         }
     }
 }
 
 @Composable
-private fun DogBreedsMessage(text: String, modifier: Modifier = Modifier) {
+private fun PopularMoviesMessage(text: String, modifier: Modifier = Modifier) {
     Box(
         modifier = modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background)
+            .background(Color.Black)
             .padding(16.dp),
         contentAlignment = Alignment.Center
     ) {
         Text(
             text = text,
+            color = Color.White,
             style = MaterialTheme.typography.titleMedium
         )
     }

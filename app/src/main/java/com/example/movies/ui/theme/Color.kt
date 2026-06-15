@@ -1,4 +1,4 @@
-package com.example.dogbreeds.ui.theme
+package com.example.movies.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

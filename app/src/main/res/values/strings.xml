@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">Dog Breeds</string>
+    <string name="app_name">Movies</string>
+    <string name="loading_popular_movies">Loading popular movies...</string>
+    <string name="popular_movies_error">Could not load popular movies.</string>
 </resources>

@@ -3,16 +3,33 @@ plugins {
     alias(libs.plugins.kotlin.compose)
 }
 
+import java.util.Properties
+
+val localProperties = Properties().apply {
+    val localPropertiesFile = rootProject.file("local.properties")
+    if (localPropertiesFile.exists()) {
+        localPropertiesFile.inputStream().use(::load)
+    }
+}
+
+val tmdbApiKey = localProperties.getProperty("TMDB_API_KEY", "")
+
 android {
-    namespace = "com.example.dogbreeds"
+    namespace = "com.example.movies"
     compileSdk = 37
 
     defaultConfig {
-        applicationId = "com.example.dogbreeds"
+        applicationId = "com.example.movies"
         minSdk = 24
         targetSdk = 36
         versionCode = 1
         versionName = "1.0"
+
+        buildConfigField(
+            type = "String",
+            name = "TMDB_API_KEY",
+            value = "\"${tmdbApiKey.replace("\\", "\\\\").replace("\"", "\\\"")}\""
+        )
     }
 
     buildTypes {
@@ -27,6 +44,7 @@ android {
         targetCompatibility = JavaVersion.VERSION_11
     }
     buildFeatures {
+        buildConfig = true
         compose = true
     }
 }
