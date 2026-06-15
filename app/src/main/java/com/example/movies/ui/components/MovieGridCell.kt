@@ -10,6 +10,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.outlined.FavoriteBorder
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -106,15 +110,14 @@ private fun MoviePoster(
             modifier = Modifier.matchParentSize(),
             contentScale = ContentScale.Crop
         )
-        Text(
-            text = if (isFavorite) "♥" else "♡",
-            color = Color.White,
-            style = MaterialTheme.typography.displaySmall,
-            fontWeight = FontWeight.Bold,
+        Icon(
+            imageVector = if (isFavorite) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
+            contentDescription = null,
+            tint = if (isFavorite) Color(0xFFFF2D3F) else Color.White,
             modifier = Modifier
                 .align(Alignment.TopEnd)
                 .padding(top = 8.dp, end = 8.dp)
-                .size(34.dp)
+                .size(32.dp)
                 .clickable(onClick = onFavoriteClick)
         )
     }

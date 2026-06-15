@@ -48,7 +48,7 @@ fun FavoritesScreen(
             start = 18.dp,
             top = 69.dp,
             end = 18.dp,
-            bottom = 24.dp
+            bottom = 116.dp
         ),
         horizontalArrangement = Arrangement.spacedBy(12.dp),
         verticalArrangement = Arrangement.spacedBy(24.dp)

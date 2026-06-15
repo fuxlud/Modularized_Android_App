@@ -85,7 +85,7 @@ fun PopularMoviesContent(
                     start = 18.dp,
                     top = 32.dp,
                     end = 18.dp,
-                    bottom = 24.dp
+                    bottom = 116.dp
                 ),
                 horizontalArrangement = Arrangement.spacedBy(12.dp),
                 verticalArrangement = Arrangement.spacedBy(24.dp)
@@ -94,10 +94,10 @@ fun PopularMoviesContent(
                     Text(
                         text = "Discover Popular Movies",
                         color = Color.White,
-                        style = MaterialTheme.typography.displaySmall,
+                        style = MaterialTheme.typography.headlineLarge,
                         fontWeight = FontWeight.Bold,
                         modifier = Modifier.padding(bottom = 6.dp),
-                        maxLines = 1,
+                        maxLines = 2,
                         overflow = TextOverflow.Ellipsis
                     )
                 }
