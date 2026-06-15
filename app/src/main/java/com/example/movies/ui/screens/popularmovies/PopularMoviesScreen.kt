@@ -10,10 +10,13 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import com.example.movies.data.MovieRepository
+import com.example.movies.model.Movie
 import kotlinx.coroutines.launch
 
 @Composable
 fun PopularMoviesScreen(
+    favoriteMovieIds: Set<Int>,
+    onFavoriteClick: (Movie) -> Unit,
     modifier: Modifier = Modifier,
     repository: MovieRepository = remember { MovieRepository() }
 ) {
@@ -40,6 +43,8 @@ fun PopularMoviesScreen(
 
     PopularMoviesContent(
         state = state,
+        favoriteMovieIds = favoriteMovieIds,
+        onFavoriteClick = onFavoriteClick,
         modifier = modifier,
         onLoadNextPage = {
             val loadedState = state as? PopularMoviesUiState.Loaded ?: return@PopularMoviesContent

@@ -28,8 +28,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.example.movies.R
+import com.example.movies.model.Movie
+import com.example.movies.ui.components.MovieGridCell
 import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.map
 
 private val ScreenGradient = Brush.verticalGradient(
     colors = listOf(
@@ -42,6 +43,8 @@ private val ScreenGradient = Brush.verticalGradient(
 @Composable
 fun PopularMoviesContent(
     state: PopularMoviesUiState,
+    favoriteMovieIds: Set<Int>,
+    onFavoriteClick: (Movie) -> Unit,
     modifier: Modifier = Modifier,
     onLoadNextPage: () -> Unit = {}
 ) {
@@ -80,7 +83,7 @@ fun PopularMoviesContent(
                     .background(ScreenGradient),
                 contentPadding = PaddingValues(
                     start = 18.dp,
-                    top = 69.dp,
+                    top = 32.dp,
                     end = 18.dp,
                     bottom = 24.dp
                 ),
@@ -88,27 +91,15 @@ fun PopularMoviesContent(
                 verticalArrangement = Arrangement.spacedBy(24.dp)
             ) {
                 item(span = { GridItemSpan(maxLineSpan) }) {
-                    Column(
+                    Text(
+                        text = "Discover Popular Movies",
+                        color = Color.White,
+                        style = MaterialTheme.typography.displaySmall,
+                        fontWeight = FontWeight.Bold,
                         modifier = Modifier.padding(bottom = 6.dp),
-                        verticalArrangement = Arrangement.spacedBy(22.dp)
-                    ) {
-                        Text(
-                            text = "Discover",
-                            color = Color.White,
-                            style = MaterialTheme.typography.displaySmall,
-                            fontWeight = FontWeight.Bold,
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis
-                        )
-                        Text(
-                            text = "Popular Movies",
-                            color = Color.White,
-                            style = MaterialTheme.typography.headlineSmall,
-                            fontWeight = FontWeight.Bold,
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis
-                        )
-                    }
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
                 }
 
                 items(
@@ -116,7 +107,11 @@ fun PopularMoviesContent(
                     key = { movie -> movie.id },
                     contentType = { "popularMovie" }
                 ) { movie ->
-                    PopularMovieCell(movie = movie)
+                    MovieGridCell(
+                        movie = movie,
+                        isFavorite = movie.id in favoriteMovieIds,
+                        onFavoriteClick = onFavoriteClick
+                    )
                 }
 
                 if (state.isLoadingNextPage) {

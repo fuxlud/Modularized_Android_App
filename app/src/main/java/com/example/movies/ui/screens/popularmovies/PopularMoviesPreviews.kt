@@ -9,7 +9,11 @@ import com.example.movies.ui.theme.MoviesTheme
 @Composable
 private fun PopularMoviesScreenPreview() {
     MoviesTheme(darkTheme = true) {
-        PopularMoviesContent(state = PopularMoviesUiState.Loaded(samplePopularMovies))
+        PopularMoviesContent(
+            state = PopularMoviesUiState.Loaded(samplePopularMovies),
+            favoriteMovieIds = setOf(1),
+            onFavoriteClick = {}
+        )
     }
 }
 
@@ -21,6 +25,10 @@ private fun PopularMoviesScreenPreview() {
 @Composable
 private fun PopularMoviesScreenDarkPreview() {
     MoviesTheme(darkTheme = true) {
-        PopularMoviesContent(state = PopularMoviesUiState.Loaded(samplePopularMovies))
+        PopularMoviesContent(
+            state = PopularMoviesUiState.Loaded(samplePopularMovies),
+            favoriteMovieIds = setOf(1),
+            onFavoriteClick = {}
+        )
     }
 }

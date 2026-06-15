@@ -1,6 +1,7 @@
-package com.example.movies.ui.screens.popularmovies
+package com.example.movies.ui.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -26,7 +27,12 @@ import com.example.movies.model.Movie
 import java.util.Locale
 
 @Composable
-fun PopularMovieCell(movie: Movie, modifier: Modifier = Modifier) {
+fun MovieGridCell(
+    movie: Movie,
+    isFavorite: Boolean,
+    onFavoriteClick: (Movie) -> Unit,
+    modifier: Modifier = Modifier
+) {
     val ratingText = remember(movie.rating) {
         String.format(Locale.US, "%.1f", movie.rating)
     }
@@ -36,6 +42,8 @@ fun PopularMovieCell(movie: Movie, modifier: Modifier = Modifier) {
     ) {
         MoviePoster(
             posterUrl = movie.posterUrl,
+            isFavorite = isFavorite,
+            onFavoriteClick = { onFavoriteClick(movie) },
             modifier = Modifier
                 .fillMaxWidth()
                 .aspectRatio(0.72f)
@@ -69,7 +77,12 @@ fun PopularMovieCell(movie: Movie, modifier: Modifier = Modifier) {
 }
 
 @Composable
-private fun MoviePoster(posterUrl: String?, modifier: Modifier = Modifier) {
+private fun MoviePoster(
+    posterUrl: String?,
+    isFavorite: Boolean,
+    onFavoriteClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
     Box(
         modifier = modifier
             .clip(RoundedCornerShape(12.dp))
@@ -94,7 +107,7 @@ private fun MoviePoster(posterUrl: String?, modifier: Modifier = Modifier) {
             contentScale = ContentScale.Crop
         )
         Text(
-            text = "♡",
+            text = if (isFavorite) "♥" else "♡",
             color = Color.White,
             style = MaterialTheme.typography.displaySmall,
             fontWeight = FontWeight.Bold,
@@ -102,6 +115,7 @@ private fun MoviePoster(posterUrl: String?, modifier: Modifier = Modifier) {
                 .align(Alignment.TopEnd)
                 .padding(top = 8.dp, end = 8.dp)
                 .size(34.dp)
+                .clickable(onClick = onFavoriteClick)
         )
     }
 }
