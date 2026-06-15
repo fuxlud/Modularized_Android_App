@@ -28,8 +28,8 @@ class MoviesApi(
             Movie(
                 id = item.getInt("id"),
                 title = item.getString("title"),
-                overview = item.optString("overview"),
-                posterUrl = posterPath?.let { "${MoviesApiConfig.posterBaseUrl}$it" }
+                posterUrl = posterPath?.let { "${MoviesApiConfig.posterBaseUrl}$it" },
+                rating = item.optDouble("vote_average")
             )
         }
     }

@@ -3,17 +3,15 @@ package com.example.movies.ui.screens.popularmovies
 import android.graphics.BitmapFactory
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -41,42 +39,39 @@ import kotlinx.coroutines.withContext
 
 @Composable
 fun PopularMovieCell(movie: Movie, modifier: Modifier = Modifier) {
-    Surface(
-        modifier = modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(8.dp),
-        color = Color(0xFF151515),
-        tonalElevation = 0.dp
+    Column(
+        modifier = modifier.fillMaxWidth()
     ) {
+        MoviePoster(
+            posterUrl = movie.posterUrl,
+            modifier = Modifier
+                .fillMaxWidth()
+                .aspectRatio(0.72f)
+        )
+        Text(
+            text = movie.title,
+            color = Color.White,
+            fontWeight = FontWeight.Bold,
+            style = MaterialTheme.typography.titleMedium,
+            modifier = Modifier.padding(top = 10.dp),
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis
+        )
         Row(
-            modifier = Modifier.padding(12.dp),
-            horizontalArrangement = Arrangement.spacedBy(12.dp)
+            modifier = Modifier.padding(top = 7.dp),
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            MoviePoster(
-                posterUrl = movie.posterUrl,
-                modifier = Modifier
-                    .width(82.dp)
-                    .aspectRatio(2f / 3f)
+            Text(
+                text = "★",
+                color = Color(0xFF43A7FF),
+                style = MaterialTheme.typography.headlineSmall,
+                modifier = Modifier.padding(end = 6.dp)
             )
-            Column(
-                modifier = Modifier.weight(1f),
-                verticalArrangement = Arrangement.spacedBy(6.dp)
-            ) {
-                Text(
-                    text = movie.title,
-                    color = Color.White,
-                    fontWeight = FontWeight.SemiBold,
-                    style = MaterialTheme.typography.titleMedium,
-                    maxLines = 2,
-                    overflow = TextOverflow.Ellipsis
-                )
-                Text(
-                    text = movie.overview.ifBlank { "No overview available." },
-                    color = Color(0xFFB8B8B8),
-                    style = MaterialTheme.typography.bodyMedium,
-                    maxLines = 4,
-                    overflow = TextOverflow.Ellipsis
-                )
-            }
+            Text(
+                text = String.format("%.1f", movie.rating),
+                color = Color(0xFFD9DDE5),
+                style = MaterialTheme.typography.titleMedium
+            )
         }
     }
 }
@@ -100,9 +95,8 @@ private fun MoviePoster(posterUrl: String?, modifier: Modifier = Modifier) {
 
     Box(
         modifier = modifier
-            .clip(RoundedCornerShape(6.dp))
-            .background(Color(0xFF2A2A2A)),
-        contentAlignment = Alignment.Center
+            .clip(RoundedCornerShape(12.dp))
+            .background(Color(0xFF182A3E))
     ) {
         val image = poster
         if (image != null) {
@@ -113,11 +107,26 @@ private fun MoviePoster(posterUrl: String?, modifier: Modifier = Modifier) {
                 contentScale = ContentScale.Crop
             )
         } else {
-            Text(
-                text = "🎬",
-                color = Color(0xFF777777),
-                style = MaterialTheme.typography.headlineMedium
-            )
+            Box(
+                modifier = Modifier.matchParentSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = "🎬",
+                    color = Color(0xFF6E7C8C),
+                    style = MaterialTheme.typography.headlineMedium
+                )
+            }
         }
+        Text(
+            text = "♡",
+            color = Color.White,
+            style = MaterialTheme.typography.displaySmall,
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier
+                .align(Alignment.TopEnd)
+                .padding(top = 8.dp, end = 8.dp)
+                .size(34.dp)
+        )
     }
 }

@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import com.example.movies.ui.screens.popularmovies.PopularMoviesScreen
 import com.example.movies.ui.theme.MoviesTheme
 
@@ -17,7 +18,10 @@ class MoviesActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             MoviesTheme(darkTheme = true) {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                Scaffold(
+                    modifier = Modifier.fillMaxSize(),
+                    containerColor = Color(0xFF11263C)
+                ) { innerPadding ->
                     PopularMoviesScreen(
                         modifier = Modifier.padding(innerPadding)
                     )

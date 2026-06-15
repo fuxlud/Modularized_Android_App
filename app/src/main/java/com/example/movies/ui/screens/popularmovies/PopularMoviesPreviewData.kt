@@ -6,19 +6,37 @@ val samplePopularMovies = listOf(
     Movie(
         id = 1,
         title = "The Dark Knight",
-        overview = "Batman faces a criminal mastermind whose chaos pushes Gotham to its limits.",
-        posterUrl = null
+        posterUrl = null,
+        rating = 8.5
     ),
     Movie(
         id = 2,
         title = "Inception",
-        overview = "A thief who steals secrets through dreams is offered one chance to erase his past.",
-        posterUrl = null
+        posterUrl = null,
+        rating = 8.3
     ),
     Movie(
         id = 3,
         title = "Interstellar",
-        overview = "Explorers travel through a wormhole in search of a future for humanity.",
-        posterUrl = null
+        posterUrl = null,
+        rating = 8.7
+    ),
+    Movie(
+        id = 4,
+        title = "Dune: Part Two",
+        posterUrl = null,
+        rating = 8.1
+    ),
+    Movie(
+        id = 5,
+        title = "The Batman",
+        posterUrl = null,
+        rating = 7.7
+    ),
+    Movie(
+        id = 6,
+        title = "Oppenheimer",
+        posterUrl = null,
+        rating = 8.1
     )
 )
