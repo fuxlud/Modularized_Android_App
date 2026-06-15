@@ -28,6 +28,12 @@ import androidx.compose.ui.unit.dp
 import com.example.movies.R
 import com.example.movies.model.Movie
 import com.example.movies.ui.components.MovieGridCell
+import com.example.movies.ui.screens.movies.MovieGridBottomPadding
+import com.example.movies.ui.screens.movies.MovieGridHorizontalPadding
+import com.example.movies.ui.screens.movies.MovieGridHorizontalSpacing
+import com.example.movies.ui.screens.movies.MovieGridTitleBottomPadding
+import com.example.movies.ui.screens.movies.MovieGridTopPadding
+import com.example.movies.ui.screens.movies.MovieGridVerticalSpacing
 import com.example.movies.ui.theme.AppBackgroundGradient
 import com.example.movies.ui.theme.AppTextPrimary
 import com.example.movies.ui.theme.MovieRatingAccent
@@ -74,13 +80,13 @@ fun PopularMoviesContent(
                     .fillMaxSize()
                     .background(AppBackgroundGradient),
                 contentPadding = PaddingValues(
-                    start = 18.dp,
-                    top = 32.dp,
-                    end = 18.dp,
-                    bottom = 116.dp
+                    start = MovieGridHorizontalPadding,
+                    top = MovieGridTopPadding,
+                    end = MovieGridHorizontalPadding,
+                    bottom = MovieGridBottomPadding
                 ),
-                horizontalArrangement = Arrangement.spacedBy(12.dp),
-                verticalArrangement = Arrangement.spacedBy(24.dp)
+                horizontalArrangement = Arrangement.spacedBy(MovieGridHorizontalSpacing),
+                verticalArrangement = Arrangement.spacedBy(MovieGridVerticalSpacing)
             ) {
                 item(span = { GridItemSpan(maxLineSpan) }) {
                     Text(
@@ -88,7 +94,7 @@ fun PopularMoviesContent(
                         color = AppTextPrimary,
                         style = MaterialTheme.typography.headlineLarge,
                         fontWeight = FontWeight.Bold,
-                        modifier = Modifier.padding(bottom = 6.dp),
+                        modifier = Modifier.padding(bottom = MovieGridTitleBottomPadding),
                         maxLines = 2,
                         overflow = TextOverflow.Ellipsis
                     )

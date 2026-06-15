@@ -3,7 +3,6 @@ package com.example.movies.ui.screens.favorites
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -24,6 +23,12 @@ import androidx.compose.ui.unit.dp
 import com.example.movies.R
 import com.example.movies.model.Movie
 import com.example.movies.ui.components.MovieGridCell
+import com.example.movies.ui.screens.movies.MovieGridBottomPadding
+import com.example.movies.ui.screens.movies.MovieGridHorizontalPadding
+import com.example.movies.ui.screens.movies.MovieGridHorizontalSpacing
+import com.example.movies.ui.screens.movies.MovieGridTitleBottomPadding
+import com.example.movies.ui.screens.movies.MovieGridTopPadding
+import com.example.movies.ui.screens.movies.MovieGridVerticalSpacing
 import com.example.movies.ui.theme.AppBackgroundGradient
 import com.example.movies.ui.theme.AppTextPrimary
 import com.example.movies.ui.theme.AppTextSecondary
@@ -40,36 +45,24 @@ fun FavoritesScreen(
             .fillMaxSize()
             .background(AppBackgroundGradient),
         contentPadding = PaddingValues(
-            start = 18.dp,
-            top = 69.dp,
-            end = 18.dp,
-            bottom = 116.dp
+            start = MovieGridHorizontalPadding,
+            top = MovieGridTopPadding,
+            end = MovieGridHorizontalPadding,
+            bottom = MovieGridBottomPadding
         ),
-        horizontalArrangement = Arrangement.spacedBy(12.dp),
-        verticalArrangement = Arrangement.spacedBy(24.dp)
+        horizontalArrangement = Arrangement.spacedBy(MovieGridHorizontalSpacing),
+        verticalArrangement = Arrangement.spacedBy(MovieGridVerticalSpacing)
     ) {
         item(span = { GridItemSpan(maxLineSpan) }) {
-            Column(
-                modifier = Modifier.padding(bottom = 6.dp),
-                verticalArrangement = Arrangement.spacedBy(22.dp)
-            ) {
-                Text(
-                    text = stringResource(R.string.favorites_title),
-                    color = AppTextPrimary,
-                    style = MaterialTheme.typography.displaySmall,
-                    fontWeight = FontWeight.Bold,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
-                )
-                Text(
-                    text = stringResource(R.string.favorites_subtitle),
-                    color = AppTextPrimary,
-                    style = MaterialTheme.typography.headlineSmall,
-                    fontWeight = FontWeight.Bold,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
-                )
-            }
+            Text(
+                text = stringResource(R.string.favorites_title),
+                color = AppTextPrimary,
+                style = MaterialTheme.typography.headlineLarge,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.padding(bottom = MovieGridTitleBottomPadding),
+                maxLines = 2,
+                overflow = TextOverflow.Ellipsis
+            )
         }
 
         if (movies.isEmpty()) {
