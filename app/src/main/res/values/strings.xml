@@ -1,5 +1,13 @@
 <resources>
     <string name="app_name">Movies</string>
+    <string name="discover_tab_title">Discover</string>
+    <string name="favorites_tab_title">Favorites</string>
+    <string name="favorites_title">Favorites</string>
+    <string name="favorites_subtitle">Saved Movies</string>
+    <string name="empty_favorites_message">Tap a heart to save a movie.</string>
+    <string name="popular_movies_title">Discover Popular Movies</string>
     <string name="loading_popular_movies">Loading popular movies...</string>
     <string name="popular_movies_error">Could not load popular movies.</string>
+    <string name="rating_star">★</string>
+    <string name="movie_poster_placeholder">🎬</string>
 </resources>

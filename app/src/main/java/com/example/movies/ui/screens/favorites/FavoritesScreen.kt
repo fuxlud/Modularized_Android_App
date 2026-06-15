@@ -16,14 +16,17 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import com.example.movies.R
 import com.example.movies.model.Movie
 import com.example.movies.ui.components.MovieGridCell
 import com.example.movies.ui.theme.AppBackgroundGradient
+import com.example.movies.ui.theme.AppTextPrimary
+import com.example.movies.ui.theme.AppTextSecondary
 
 @Composable
 fun FavoritesScreen(
@@ -51,16 +54,16 @@ fun FavoritesScreen(
                 verticalArrangement = Arrangement.spacedBy(22.dp)
             ) {
                 Text(
-                    text = "Favorites",
-                    color = Color.White,
+                    text = stringResource(R.string.favorites_title),
+                    color = AppTextPrimary,
                     style = MaterialTheme.typography.displaySmall,
                     fontWeight = FontWeight.Bold,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
                 Text(
-                    text = "Saved Movies",
-                    color = Color.White,
+                    text = stringResource(R.string.favorites_subtitle),
+                    color = AppTextPrimary,
                     style = MaterialTheme.typography.headlineSmall,
                     fontWeight = FontWeight.Bold,
                     maxLines = 1,
@@ -98,8 +101,8 @@ private fun EmptyFavoritesMessage(modifier: Modifier = Modifier) {
         contentAlignment = Alignment.Center
     ) {
         Text(
-            text = "Tap a heart to save a movie.",
-            color = Color(0xFFD9DDE5),
+            text = stringResource(R.string.empty_favorites_message),
+            color = AppTextSecondary,
             style = MaterialTheme.typography.titleMedium,
             textAlign = TextAlign.Center
         )

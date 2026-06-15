@@ -21,7 +21,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -30,6 +29,8 @@ import com.example.movies.R
 import com.example.movies.model.Movie
 import com.example.movies.ui.components.MovieGridCell
 import com.example.movies.ui.theme.AppBackgroundGradient
+import com.example.movies.ui.theme.AppTextPrimary
+import com.example.movies.ui.theme.MovieRatingAccent
 import kotlinx.coroutines.flow.distinctUntilChanged
 
 @Composable
@@ -83,8 +84,8 @@ fun PopularMoviesContent(
             ) {
                 item(span = { GridItemSpan(maxLineSpan) }) {
                     Text(
-                        text = "Discover Popular Movies",
-                        color = Color.White,
+                        text = stringResource(R.string.popular_movies_title),
+                        color = AppTextPrimary,
                         style = MaterialTheme.typography.headlineLarge,
                         fontWeight = FontWeight.Bold,
                         modifier = Modifier.padding(bottom = 6.dp),
@@ -115,7 +116,7 @@ fun PopularMoviesContent(
                         ) {
                             CircularProgressIndicator(
                                 modifier = Modifier.size(28.dp),
-                                color = Color(0xFF43A7FF),
+                                color = MovieRatingAccent,
                                 strokeWidth = 3.dp
                             )
                         }
@@ -137,7 +138,7 @@ private fun PopularMoviesMessage(text: String, modifier: Modifier = Modifier) {
     ) {
         Text(
             text = text,
-            color = Color.White,
+            color = AppTextPrimary,
             style = MaterialTheme.typography.titleMedium
         )
     }

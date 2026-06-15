@@ -21,13 +21,20 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
+import com.example.movies.R
 import com.example.movies.model.Movie
+import com.example.movies.ui.theme.AppTextPrimary
+import com.example.movies.ui.theme.AppTextSecondary
+import com.example.movies.ui.theme.FavoriteSelected
+import com.example.movies.ui.theme.MoviePosterPlaceholderBackground
+import com.example.movies.ui.theme.MoviePosterPlaceholderIcon
+import com.example.movies.ui.theme.MovieRatingAccent
 import java.util.Locale
 
 @Composable
@@ -54,7 +61,7 @@ fun MovieGridCell(
         )
         Text(
             text = movie.title,
-            color = Color.White,
+            color = AppTextPrimary,
             fontWeight = FontWeight.Bold,
             style = MaterialTheme.typography.titleMedium,
             modifier = Modifier.padding(top = 10.dp),
@@ -66,14 +73,14 @@ fun MovieGridCell(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = "★",
-                color = Color(0xFF43A7FF),
+                text = stringResource(R.string.rating_star),
+                color = MovieRatingAccent,
                 style = MaterialTheme.typography.headlineSmall,
                 modifier = Modifier.padding(end = 6.dp)
             )
             Text(
                 text = ratingText,
-                color = Color(0xFFD9DDE5),
+                color = AppTextSecondary,
                 style = MaterialTheme.typography.titleMedium
             )
         }
@@ -90,7 +97,7 @@ private fun MoviePoster(
     Box(
         modifier = modifier
             .clip(RoundedCornerShape(12.dp))
-            .background(Color(0xFF182A3E))
+            .background(MoviePosterPlaceholderBackground)
     ) {
         if (posterUrl == null) {
             Box(
@@ -98,8 +105,8 @@ private fun MoviePoster(
                 contentAlignment = Alignment.Center
             ) {
                 Text(
-                    text = "🎬",
-                    color = Color(0xFF6E7C8C),
+                    text = stringResource(R.string.movie_poster_placeholder),
+                    color = MoviePosterPlaceholderIcon,
                     style = MaterialTheme.typography.headlineMedium
                 )
             }
@@ -113,7 +120,7 @@ private fun MoviePoster(
         Icon(
             imageVector = if (isFavorite) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
             contentDescription = null,
-            tint = if (isFavorite) Color(0xFFFF2D3F) else Color.White,
+            tint = if (isFavorite) FavoriteSelected else AppTextPrimary,
             modifier = Modifier
                 .align(Alignment.TopEnd)
                 .padding(top = 8.dp, end = 8.dp)

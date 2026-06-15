@@ -20,7 +20,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.movies.model.Movie
@@ -28,6 +28,12 @@ import com.example.movies.ui.screens.favorites.FavoritesScreen
 import com.example.movies.ui.screens.popularmovies.PopularMoviesScreen
 import com.example.movies.ui.screens.popularmovies.rememberPopularMoviesState
 import com.example.movies.ui.theme.AppBackgroundGradient
+import com.example.movies.ui.theme.AppTextPrimary
+import com.example.movies.ui.theme.AppTransparent
+import com.example.movies.ui.theme.BottomNavigationContainerColor
+import com.example.movies.ui.theme.BottomNavigationFadeEnd
+import com.example.movies.ui.theme.BottomNavigationIndicatorColor
+import com.example.movies.ui.theme.BottomNavigationUnselectedColor
 
 @Composable
 fun MoviesHomeScreen(
@@ -68,8 +74,8 @@ fun MoviesHomeScreen(
                 .background(
                     Brush.verticalGradient(
                         colors = listOf(
-                            Color.Transparent,
-                            Color(0xDD00050A)
+                            AppTransparent,
+                            BottomNavigationFadeEnd
                         )
                     )
                 )
@@ -79,36 +85,37 @@ fun MoviesHomeScreen(
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .fillMaxWidth()
-                .background(Color(0xCC00050A))
+                .background(BottomNavigationContainerColor)
                 .navigationBarsPadding(),
         ) {
             NavigationBar(
-                containerColor = Color.Transparent,
-                contentColor = Color.White,
+                containerColor = AppTransparent,
+                contentColor = AppTextPrimary,
                 tonalElevation = 0.dp
             ) {
                 tabs.forEach { tab ->
+                    val tabTitle = stringResource(tab.titleResId)
                     NavigationBarItem(
                         selected = selectedTab == tab,
                         onClick = { selectedTab = tab },
                         icon = {
                             Icon(
                                 imageVector = tab.icon,
-                                contentDescription = tab.title
+                                contentDescription = tabTitle
                             )
                         },
                         label = {
                             Text(
-                                text = tab.title,
+                                text = tabTitle,
                                 fontWeight = FontWeight.Bold
                             )
                         },
                         colors = NavigationBarItemDefaults.colors(
-                            selectedIconColor = Color.White,
-                            selectedTextColor = Color.White,
-                            indicatorColor = Color(0xAA173756),
-                            unselectedIconColor = Color(0xFF9BA8B8),
-                            unselectedTextColor = Color(0xFF9BA8B8)
+                            selectedIconColor = AppTextPrimary,
+                            selectedTextColor = AppTextPrimary,
+                            indicatorColor = BottomNavigationIndicatorColor,
+                            unselectedIconColor = BottomNavigationUnselectedColor,
+                            unselectedTextColor = BottomNavigationUnselectedColor
                         )
                     )
                 }

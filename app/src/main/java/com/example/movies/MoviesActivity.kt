@@ -15,9 +15,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import com.example.movies.data.local.FavoriteMoviesStore
 import com.example.movies.ui.screens.movies.MoviesHomeScreen
+import com.example.movies.ui.theme.AppBackgroundTop
 import com.example.movies.ui.theme.MoviesTheme
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -42,7 +42,7 @@ class MoviesActivity : ComponentActivity() {
 
                 Scaffold(
                     modifier = Modifier.fillMaxSize(),
-                    containerColor = Color(0xFF11263C)
+                    containerColor = AppBackgroundTop
                 ) { innerPadding ->
                     MoviesHomeScreen(
                         favoriteMovies = favoriteMovies,

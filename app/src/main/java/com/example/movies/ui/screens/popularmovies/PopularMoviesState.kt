@@ -27,7 +27,7 @@ class PopularMoviesState(
     private var canLoadMore by mutableStateOf(true)
     private var didRequestInitialPage by mutableStateOf(false)
 
-    fun loadInitialPage() {
+    fun loadInitialPage(defaultErrorMessage: String) {
         if (didRequestInitialPage) return
 
         didRequestInitialPage = true
@@ -41,7 +41,7 @@ class PopularMoviesState(
                     },
                     onFailure = { error ->
                         PopularMoviesUiState.Error(
-                            error.message ?: "Could not load popular movies."
+                            error.message ?: defaultErrorMessage
                         )
                     }
                 )
