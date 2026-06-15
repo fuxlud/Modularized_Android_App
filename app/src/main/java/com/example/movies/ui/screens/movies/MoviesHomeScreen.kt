@@ -2,6 +2,7 @@ package com.example.movies.ui.screens.movies
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -78,40 +79,44 @@ fun MoviesHomeScreen(
                 )
         )
 
-        NavigationBar(
+        Column(
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .fillMaxWidth()
+                .background(Color(0xCC00050A))
                 .navigationBarsPadding(),
-            containerColor = Color(0xCC00050A),
-            contentColor = Color.White,
-            tonalElevation = 0.dp
         ) {
-            tabs.forEach { tab ->
-                NavigationBarItem(
-                    selected = selectedTab == tab,
-                    onClick = { selectedTab = tab },
-                    icon = {
-                        Text(
-                            text = tab.icon,
-                            style = MaterialTheme.typography.headlineSmall,
-                            color = if (selectedTab == tab) Color.White else Color(0xFF9BA8B8)
+            NavigationBar(
+                containerColor = Color.Transparent,
+                contentColor = Color.White,
+                tonalElevation = 0.dp
+            ) {
+                tabs.forEach { tab ->
+                    NavigationBarItem(
+                        selected = selectedTab == tab,
+                        onClick = { selectedTab = tab },
+                        icon = {
+                            Text(
+                                text = tab.icon,
+                                style = MaterialTheme.typography.headlineSmall,
+                                color = if (selectedTab == tab) Color.White else Color(0xFF9BA8B8)
+                            )
+                        },
+                        label = {
+                            Text(
+                                text = tab.title,
+                                fontWeight = FontWeight.Bold
+                            )
+                        },
+                        colors = NavigationBarItemDefaults.colors(
+                            selectedIconColor = Color.White,
+                            selectedTextColor = Color.White,
+                            indicatorColor = Color(0xAA173756),
+                            unselectedIconColor = Color(0xFF9BA8B8),
+                            unselectedTextColor = Color(0xFF9BA8B8)
                         )
-                    },
-                    label = {
-                        Text(
-                            text = tab.title,
-                            fontWeight = FontWeight.Bold
-                        )
-                    },
-                    colors = NavigationBarItemDefaults.colors(
-                        selectedIconColor = Color.White,
-                        selectedTextColor = Color.White,
-                        indicatorColor = Color(0xAA173756),
-                        unselectedIconColor = Color(0xFF9BA8B8),
-                        unselectedTextColor = Color(0xFF9BA8B8)
                     )
-                )
+                }
             }
         }
     }
