@@ -14,6 +14,7 @@ private fun PopularMoviesScreenPreview() {
             state = PopularMoviesUiState.Loaded(samplePopularMovies),
             favoriteMovieIds = setOf(1),
             onFavoriteClick = {},
+            onMovieClick = {},
             gridState = rememberLazyGridState()
         )
     }
@@ -31,6 +32,7 @@ private fun PopularMoviesScreenDarkPreview() {
             state = PopularMoviesUiState.Loaded(samplePopularMovies),
             favoriteMovieIds = setOf(1),
             onFavoriteClick = {},
+            onMovieClick = {},
             gridState = rememberLazyGridState()
         )
     }

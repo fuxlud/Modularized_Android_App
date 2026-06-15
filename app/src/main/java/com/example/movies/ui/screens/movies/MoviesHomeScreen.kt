@@ -25,6 +25,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.movies.model.Movie
 import com.example.movies.ui.screens.favorites.FavoritesScreen
+import com.example.movies.ui.screens.moviedetails.MovieDetailsScreen
 import com.example.movies.ui.screens.popularmovies.PopularMoviesScreen
 import com.example.movies.ui.screens.popularmovies.rememberPopularMoviesState
 import com.example.movies.ui.theme.AppBackgroundGradient
@@ -42,6 +43,7 @@ fun MoviesHomeScreen(
     modifier: Modifier = Modifier
 ) {
     var selectedTab by remember { mutableStateOf(MoviesTab.Discover) }
+    var selectedMovie by remember { mutableStateOf<Movie?>(null) }
     val favoriteMovieIds = remember(favoriteMovies) { favoriteMovies.map { it.id }.toSet() }
     val popularMoviesState = rememberPopularMoviesState()
     val tabs = MoviesTab.entries
@@ -51,73 +53,86 @@ fun MoviesHomeScreen(
             .fillMaxSize()
             .background(AppBackgroundGradient)
     ) {
-        when (selectedTab) {
-            MoviesTab.Discover -> PopularMoviesScreen(
-                favoriteMovieIds = favoriteMovieIds,
-                onFavoriteClick = onFavoriteClick,
-                popularMoviesState = popularMoviesState,
-                modifier = Modifier.fillMaxSize()
-            )
-
-            MoviesTab.Favorites -> FavoritesScreen(
-                movies = favoriteMovies,
+        val movie = selectedMovie
+        if (movie != null) {
+            MovieDetailsScreen(
+                movie = movie,
+                isFavorite = movie.id in favoriteMovieIds,
+                onBackClick = { selectedMovie = null },
                 onFavoriteClick = onFavoriteClick,
                 modifier = Modifier.fillMaxSize()
             )
-        }
-
-        Box(
-            modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .fillMaxWidth()
-                .height(116.dp)
-                .background(
-                    Brush.verticalGradient(
-                        colors = listOf(
-                            AppTransparent,
-                            BottomNavigationFadeEnd
-                        )
-                    )
+        } else {
+            when (selectedTab) {
+                MoviesTab.Discover -> PopularMoviesScreen(
+                    favoriteMovieIds = favoriteMovieIds,
+                    onFavoriteClick = onFavoriteClick,
+                    onMovieClick = { selectedMovie = it },
+                    popularMoviesState = popularMoviesState,
+                    modifier = Modifier.fillMaxSize()
                 )
-        )
 
-        Column(
-            modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .fillMaxWidth()
-                .background(BottomNavigationContainerColor)
-                .navigationBarsPadding(),
-        ) {
-            NavigationBar(
-                containerColor = AppTransparent,
-                contentColor = AppTextPrimary,
-                tonalElevation = 0.dp
-            ) {
-                tabs.forEach { tab ->
-                    val tabTitle = stringResource(tab.titleResId)
-                    NavigationBarItem(
-                        selected = selectedTab == tab,
-                        onClick = { selectedTab = tab },
-                        icon = {
-                            Icon(
-                                imageVector = tab.icon,
-                                contentDescription = tabTitle
+                MoviesTab.Favorites -> FavoritesScreen(
+                    movies = favoriteMovies,
+                    onFavoriteClick = onFavoriteClick,
+                    onMovieClick = { selectedMovie = it },
+                    modifier = Modifier.fillMaxSize()
+                )
+            }
+
+            Box(
+                modifier = Modifier
+                    .align(Alignment.BottomCenter)
+                    .fillMaxWidth()
+                    .height(116.dp)
+                    .background(
+                        Brush.verticalGradient(
+                            colors = listOf(
+                                AppTransparent,
+                                BottomNavigationFadeEnd
                             )
-                        },
-                        label = {
-                            Text(
-                                text = tabTitle,
-                                fontWeight = FontWeight.Bold
-                            )
-                        },
-                        colors = NavigationBarItemDefaults.colors(
-                            selectedIconColor = AppTextPrimary,
-                            selectedTextColor = AppTextPrimary,
-                            indicatorColor = BottomNavigationIndicatorColor,
-                            unselectedIconColor = BottomNavigationUnselectedColor,
-                            unselectedTextColor = BottomNavigationUnselectedColor
                         )
                     )
+            )
+
+            Column(
+                modifier = Modifier
+                    .align(Alignment.BottomCenter)
+                    .fillMaxWidth()
+                    .background(BottomNavigationContainerColor)
+                    .navigationBarsPadding(),
+            ) {
+                NavigationBar(
+                    containerColor = AppTransparent,
+                    contentColor = AppTextPrimary,
+                    tonalElevation = 0.dp
+                ) {
+                    tabs.forEach { tab ->
+                        val tabTitle = stringResource(tab.titleResId)
+                        NavigationBarItem(
+                            selected = selectedTab == tab,
+                            onClick = { selectedTab = tab },
+                            icon = {
+                                Icon(
+                                    imageVector = tab.icon,
+                                    contentDescription = tabTitle
+                                )
+                            },
+                            label = {
+                                Text(
+                                    text = tabTitle,
+                                    fontWeight = FontWeight.Bold
+                                )
+                            },
+                            colors = NavigationBarItemDefaults.colors(
+                                selectedIconColor = AppTextPrimary,
+                                selectedTextColor = AppTextPrimary,
+                                indicatorColor = BottomNavigationIndicatorColor,
+                                unselectedIconColor = BottomNavigationUnselectedColor,
+                                unselectedTextColor = BottomNavigationUnselectedColor
+                            )
+                        )
+                    }
                 }
             }
         }

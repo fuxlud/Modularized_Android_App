@@ -29,7 +29,9 @@ class MoviesApi(
                 id = item.getInt("id"),
                 title = item.getString("title"),
                 posterUrl = posterPath?.let { "${MoviesApiConfig.posterBaseUrl}$it" },
-                rating = item.optDouble("vote_average")
+                rating = item.optDouble("vote_average"),
+                overview = item.optString("overview"),
+                releaseDate = item.optString("release_date")
             )
         }
     }

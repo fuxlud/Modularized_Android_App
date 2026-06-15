@@ -44,6 +44,7 @@ fun PopularMoviesContent(
     state: PopularMoviesUiState,
     favoriteMovieIds: Set<Int>,
     onFavoriteClick: (Movie) -> Unit,
+    onMovieClick: (Movie) -> Unit,
     modifier: Modifier = Modifier,
     gridState: LazyGridState,
     onLoadNextPage: () -> Unit = {}
@@ -108,7 +109,8 @@ fun PopularMoviesContent(
                     MovieGridCell(
                         movie = movie,
                         isFavorite = movie.id in favoriteMovieIds,
-                        onFavoriteClick = onFavoriteClick
+                        onFavoriteClick = onFavoriteClick,
+                        onMovieClick = onMovieClick
                     )
                 }
 

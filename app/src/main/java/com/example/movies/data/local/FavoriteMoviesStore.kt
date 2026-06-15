@@ -18,7 +18,9 @@ class FavoriteMoviesStore(context: Context) {
                 id = item.getInt("id"),
                 title = item.getString("title"),
                 posterUrl = item.optString("posterUrl").takeIf { it.isNotBlank() },
-                rating = item.optDouble("rating")
+                rating = item.optDouble("rating"),
+                overview = item.optString("overview"),
+                releaseDate = item.optString("releaseDate")
             )
         }
     }
@@ -44,6 +46,8 @@ class FavoriteMoviesStore(context: Context) {
                         .put("title", movie.title)
                         .put("posterUrl", movie.posterUrl.orEmpty())
                         .put("rating", movie.rating)
+                        .put("overview", movie.overview)
+                        .put("releaseDate", movie.releaseDate)
                 )
             }
         }

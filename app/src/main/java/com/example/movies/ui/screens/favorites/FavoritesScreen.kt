@@ -37,6 +37,7 @@ import com.example.movies.ui.theme.AppTextSecondary
 fun FavoritesScreen(
     movies: List<Movie>,
     onFavoriteClick: (Movie) -> Unit,
+    onMovieClick: (Movie) -> Unit,
     modifier: Modifier = Modifier
 ) {
     LazyVerticalGrid(
@@ -78,7 +79,8 @@ fun FavoritesScreen(
                 MovieGridCell(
                     movie = movie,
                     isFavorite = true,
-                    onFavoriteClick = onFavoriteClick
+                    onFavoriteClick = onFavoriteClick,
+                    onMovieClick = onMovieClick
                 )
             }
         }

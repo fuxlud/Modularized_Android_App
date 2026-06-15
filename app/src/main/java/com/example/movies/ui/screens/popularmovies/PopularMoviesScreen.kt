@@ -11,6 +11,7 @@ import com.example.movies.model.Movie
 fun PopularMoviesScreen(
     favoriteMovieIds: Set<Int>,
     onFavoriteClick: (Movie) -> Unit,
+    onMovieClick: (Movie) -> Unit,
     modifier: Modifier = Modifier,
     popularMoviesState: PopularMoviesState = rememberPopularMoviesState()
 ) {
@@ -24,6 +25,7 @@ fun PopularMoviesScreen(
         state = popularMoviesState.uiState,
         favoriteMovieIds = favoriteMovieIds,
         onFavoriteClick = onFavoriteClick,
+        onMovieClick = onMovieClick,
         modifier = modifier,
         gridState = popularMoviesState.gridState,
         onLoadNextPage = popularMoviesState::loadNextPage

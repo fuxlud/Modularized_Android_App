@@ -9,4 +9,10 @@
     <string name="popular_movies_error">Could not load popular movies.</string>
     <string name="rating_star">★</string>
     <string name="movie_poster_placeholder">🎬</string>
+    <string name="movie_details_back">Back</string>
+    <string name="movie_details_favorite">Toggle favorite</string>
+    <string name="movie_details_rating">%1$s %2$.1f</string>
+    <string name="movie_details_release_date">Release date: %1$s</string>
+    <string name="movie_details_overview_title">Overview</string>
+    <string name="movie_details_no_overview">No overview available.</string>
 </resources>

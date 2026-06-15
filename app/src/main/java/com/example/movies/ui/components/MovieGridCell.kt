@@ -42,6 +42,7 @@ fun MovieGridCell(
     movie: Movie,
     isFavorite: Boolean,
     onFavoriteClick: (Movie) -> Unit,
+    onMovieClick: (Movie) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val ratingText = remember(movie.rating) {
@@ -49,7 +50,9 @@ fun MovieGridCell(
     }
 
     Column(
-        modifier = modifier.fillMaxWidth()
+        modifier = modifier
+            .fillMaxWidth()
+            .clickable { onMovieClick(movie) }
     ) {
         MoviePoster(
             posterUrl = movie.posterUrl,
