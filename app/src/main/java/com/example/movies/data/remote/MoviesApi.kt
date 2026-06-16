@@ -1,6 +1,6 @@
 package com.example.movies.data.remote
 
-import com.example.movies.model.Movie
+import com.example.movies.data.remote.dto.MovieDto
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.android.Android
 import io.ktor.client.request.get
@@ -10,7 +10,7 @@ import org.json.JSONObject
 class MoviesApi(
     private val client: HttpClient = HttpClient(Android)
 ) {
-    suspend fun getPopularMovies(page: Int): List<Movie> {
+    suspend fun getPopularMovies(page: Int): List<MovieDto> {
         check(MoviesApiConfig.apiKey.isNotBlank()) {
             "Missing TMDB_API_KEY in local.properties"
         }
@@ -25,14 +25,13 @@ class MoviesApi(
             val item = results.getJSONObject(index)
             val posterPath = item.optString("poster_path").takeIf { it.isNotBlank() && it != "null" }
 
-            Movie(
+            MovieDto(
                 id = item.getInt("id"),
                 title = item.getString("title"),
-                posterUrl = posterPath?.let { "${MoviesApiConfig.posterBaseUrl}$it" },
+                posterPath = posterPath,
                 rating = item.optDouble("vote_average"),
                 overview = item.optString("overview"),
-                releaseDate = item.optString("release_date"),
-                detailPosterUrl = posterPath?.let { "${MoviesApiConfig.detailPosterBaseUrl}$it" }
+                releaseDate = item.optString("release_date")
             )
         }
     }
