@@ -9,5 +9,6 @@ data class Movie(
     val posterUrl: String?,
     val rating: Double,
     val overview: String = "",
-    val releaseDate: String = ""
+    val releaseDate: String = "",
+    val detailPosterUrl: String? = null
 )
