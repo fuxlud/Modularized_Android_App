@@ -4,11 +4,11 @@ Modular Android movie app built with Kotlin, Jetpack Compose, Koin, Ktor, Coil, 
 
 ## Screenshots
 
-Static previews of the main app surfaces:
+Captured from the running app.
 
 | Discover | Details | Favorites |
 | --- | --- | --- |
-| <img src="docs/screenshots/discover.svg" width="220" alt="Discover screen preview"> | <img src="docs/screenshots/details.svg" width="220" alt="Movie details screen preview"> | <img src="docs/screenshots/favorites.svg" width="220" alt="Favorites screen preview"> |
+| <img src="docs/screenshots/discover.png" width="220" alt="Discover screen screenshot"> | <img src="docs/screenshots/details.png" width="220" alt="Movie details screen screenshot"> | <img src="docs/screenshots/favorites.png" width="220" alt="Favorites screen screenshot"> |
 
 ## Architecture
 
