@@ -2,6 +2,14 @@
 
 Modular Android movie app built with Kotlin, Jetpack Compose, Koin, Ktor, Coil, and The Movie Database API.
 
+## Screenshots
+
+Static previews of the main app surfaces:
+
+| Discover | Details | Favorites |
+| --- | --- | --- |
+| <img src="docs/screenshots/discover.svg" width="220" alt="Discover screen preview"> | <img src="docs/screenshots/details.svg" width="220" alt="Movie details screen preview"> | <img src="docs/screenshots/favorites.svg" width="220" alt="Favorites screen preview"> |
+
 ## Architecture
 
 The app is split into small Gradle modules around presentation, domain, data, and shared design system responsibilities.
