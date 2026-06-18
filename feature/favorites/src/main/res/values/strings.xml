@@ -1,0 +1,4 @@
+<resources>
+    <string name="favorites_title">Favorites</string>
+    <string name="empty_favorites_message">Tap a heart to save a movie.</string>
+</resources>

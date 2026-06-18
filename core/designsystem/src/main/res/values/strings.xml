@@ -1,0 +1,4 @@
+<resources>
+    <string name="rating_star">★</string>
+    <string name="movie_poster_placeholder">🎬</string>
+</resources>
