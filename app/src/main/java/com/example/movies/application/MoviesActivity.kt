@@ -10,6 +10,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -17,13 +18,12 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import com.example.movies.data.local.favorites.FavoriteMoviesStore
+import com.example.movies.domain.entities.Movie
 import com.example.movies.domain.repositories.MoviesRepository
-import com.example.movies.presentation.features.main.MoviesHomeScreen
 import com.example.movies.presentation.designsystem.theme.AppBackgroundTop
 import com.example.movies.presentation.designsystem.theme.MoviesTheme
-import kotlinx.coroutines.Dispatchers
+import com.example.movies.presentation.features.main.MoviesHomeScreen
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import org.koin.android.ext.android.inject
 
 class MoviesActivity : ComponentActivity() {
@@ -42,9 +42,13 @@ class MoviesActivity : ComponentActivity() {
         setContent {
             MoviesTheme(darkTheme = true) {
                 var favoriteMovies by remember {
-                    mutableStateOf(favoritesStore.getMovies())
+                    mutableStateOf<List<Movie>>(emptyList())
                 }
                 val scope = rememberCoroutineScope()
+
+                LaunchedEffect(favoritesStore) {
+                    favoriteMovies = favoritesStore.getMovies()
+                }
 
                 Scaffold(
                     modifier = Modifier.fillMaxSize(),
@@ -55,9 +59,7 @@ class MoviesActivity : ComponentActivity() {
                         moviesRepository = moviesRepository,
                         onFavoriteClick = { movie ->
                             scope.launch {
-                                favoriteMovies = withContext(Dispatchers.IO) {
-                                    favoritesStore.toggleMovie(movie)
-                                }
+                                favoriteMovies = favoritesStore.toggleMovie(movie)
                             }
                         },
                         modifier = Modifier.padding(innerPadding)
