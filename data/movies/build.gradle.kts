@@ -1,8 +1,8 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.library)
 }
-
-import java.util.Properties
 
 val localProperties = Properties().apply {
     val localPropertiesFile = rootProject.file("local.properties")
